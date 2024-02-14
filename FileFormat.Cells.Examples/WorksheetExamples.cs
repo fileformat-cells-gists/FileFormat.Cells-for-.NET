@@ -20,7 +20,7 @@ namespace FileFormat.Cells.Examples
         private const string DefaultImageFile = $"{DefaultImageDirectory}/image1.png";
         private const string DefaultSpreadSheetFileData = "../../../defaultSpreadSheets/defaultSpreadSheet.xlsx";
         private const string BasicOperationFile = $"{DefaultDirectory}/spreadsheet_basic_operations.xlsx";
-
+        private const string BasicOperationFileColumns = $"{DefaultDirectory}/spreadsheet_basic_operations_columns.xlsx";
         public WorksheetExamples()
         {
             if (!System.IO.Directory.Exists(DefaultDirectory))
@@ -408,6 +408,36 @@ namespace FileFormat.Cells.Examples
                 wb.Save(saveFilePath);
 
                 Console.WriteLine("Rows inserted and workbook saved successfully.");
+            }
+        }
+
+        public void InsertColumnsIntoWorksheet(string filePath = DefaultSpreadSheetFileData)
+        {
+            // Load the workbook from the specified file path
+            using (Workbook wb = new Workbook(filePath))
+            {
+                var saveFilePath = BasicOperationFileColumns;
+
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                // Define the starting column and the number of columns to insert
+                string startColumn = "B";
+                int numberOfColumns = 3;
+
+                // Insert the columns into the worksheet
+                firstSheet.InsertColumns(startColumn, numberOfColumns);
+
+                // Get the total column count after insertion (Note: Moved after insertion for correct count)
+                int columnsCount = firstSheet.GetColumnCount();
+
+                // Output the updated column count to the console
+                Console.WriteLine("Columns Count=" + columnsCount);
+
+                // Save the workbook to reflect the changes made
+                wb.Save(saveFilePath);
+
+                Console.WriteLine("Columns inserted and workbook saved successfully.");
             }
         }
     }

@@ -69,6 +69,9 @@ namespace FileForamt.Cells.Examples.Usage
 
             // Call the method to Insert Rows within a worksheet.
             myWorksheet.InsertRowsIntoWorksheet();
+
+            // Call the method to Insert Columns within a worksheet.
+            myWorksheet.InsertColumnsIntoWorksheet();
         }
     }
 }
