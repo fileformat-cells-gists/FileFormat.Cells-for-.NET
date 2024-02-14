@@ -66,6 +66,9 @@ namespace FileForamt.Cells.Examples.Usage
 
             // Call the method to set the value for a range within a worksheet.
             myWorksheet.SetRangeValue();
+
+            // Call the method to Insert Rows within a worksheet.
+            myWorksheet.InsertRowsIntoWorksheet();
         }
     }
 }

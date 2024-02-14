@@ -18,6 +18,8 @@ namespace FileFormat.Cells.Examples
         private const string DefaultFileWithImage = $"{DefaultDirectory}/spreadsheet_images.xlsx";
         private const string DefaultImageDirectory = "../../../spreadSheetImages";
         private const string DefaultImageFile = $"{DefaultImageDirectory}/image1.png";
+        private const string DefaultSpreadSheetFileData = "../../../defaultSpreadSheets/defaultSpreadSheet.xlsx";
+        private const string BasicOperationFile = $"{DefaultDirectory}/spreadsheet_basic_operations.xlsx";
 
         public WorksheetExamples()
         {
@@ -376,6 +378,36 @@ namespace FileFormat.Cells.Examples
                 wb.Save(filePath);
 
                 Console.WriteLine("Value set to range and workbook saved successfully.");
+            }
+        }
+
+        public void InsertRowsIntoWorksheet(string filePath = DefaultSpreadSheetFileData)
+        {
+           
+            // Load the workbook from the specified file path
+            using (Workbook wb = new Workbook(filePath))
+            {
+                var saveFilePath = BasicOperationFile;
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                // Define the starting row index and the number of rows to insert
+                uint startRowIndex = 5;
+                uint numberOfRows = 3;
+
+                // Insert the rows into the worksheet
+                firstSheet.InsertRows(startRowIndex, numberOfRows);
+
+                // Get the total row count after insertion
+                int rowsCount = firstSheet.GetRowCount();
+
+                // Output the updated row count to the console
+                Console.WriteLine("Rows Count=" + rowsCount);
+
+                // Save the workbook to reflect the changes made
+                wb.Save(saveFilePath);
+
+                Console.WriteLine("Rows inserted and workbook saved successfully.");
             }
         }
     }
