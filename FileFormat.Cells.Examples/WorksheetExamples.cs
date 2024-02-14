@@ -13,7 +13,10 @@ namespace FileFormat.Cells.Examples
         private const string DefaultDataPopulatedFilePath = $"{DefaultDirectory}/spreadsheet_data_populated.xlsx";
         private const string DefaultProtectedSheetFile = $"{DefaultDirectory}/spreadsheet_protected_sheet.xlsx";
         private const string DefaultUnProtectedSheetFile = $"{DefaultDirectory}/spreadsheet_un_protected_sheet.xlsx";
-        
+        private const string DefaultFileWithImage = $"{DefaultDirectory}/spreadsheet_images.xlsx";
+        private const string DefaultImageDirectory = "../../../spreadSheetImages";
+        private const string DefaultImageFile = $"{DefaultImageDirectory}/image1.png";
+
         public WorksheetExamples()
         {
             if (!System.IO.Directory.Exists(DefaultDirectory))
@@ -253,6 +256,68 @@ namespace FileFormat.Cells.Examples
 
                     wb.Save(filePath);
                     Console.WriteLine($"All protected worksheets are now unprotected. Workbook saved at {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+
+        public void AddImageToWorksheet(string filePath = DefaultFileWithImage, string imagePath = DefaultImageFile)
+        {
+            try
+            {
+                using (var workbook = new Workbook())
+                {
+                    // Adding an image to the first worksheet
+                    var firstSheet = workbook.Worksheets[0];
+                    // Assuming the Image class and AddImage method exist and work as described
+                    var imageForFirstSheet = new Image(imagePath); // Create an instance of Image class
+                    firstSheet.AddImage(imageForFirstSheet, 6, 1, 8, 3); // Add image to worksheet
+
+
+
+                    // Saving the workbook with the added images
+                    workbook.Save(filePath);
+                    Console.WriteLine($"Workbook saved with images at {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while adding images to the workbook: {ex.Message}");
+            }
+        }
+
+        public void ExtractImagesFromWorksheet(string filePath = DefaultFileWithImage, string outputDirectory = DefaultImageDirectory)
+        {
+            try
+            {
+                Workbook wb = new Workbook(filePath); // Load the workbook
+
+                // Select the first worksheet
+                var worksheet = wb.Worksheets[0];
+
+                // Extract images
+                var images = worksheet.ExtractImages(); // Assuming ExtractImages method exists and returns image objects
+
+                // Ensure the output directory exists
+                if (!Directory.Exists(outputDirectory))
+                {
+                    Directory.CreateDirectory(outputDirectory);
+                    Console.WriteLine($"Created directory at {outputDirectory}");
+                }
+
+                // Save each extracted image
+                foreach (var image in images)
+                {
+                    var outputFilePath = Path.Combine(outputDirectory, $"Image_{Guid.NewGuid()}.{image.Extension}");
+                    using (var fileStream = File.Create(outputFilePath))
+                    {
+                        image.Data.CopyTo(fileStream); // Assuming image object has Data (Stream) and Extension properties
+                    }
+
+                    Console.WriteLine($"Image saved to {outputFilePath}");
                 }
             }
             catch (Exception ex)

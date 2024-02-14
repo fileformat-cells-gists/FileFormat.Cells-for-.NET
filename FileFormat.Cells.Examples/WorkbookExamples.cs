@@ -7,6 +7,9 @@
         private const string DefaultStyledFilePath = $"{DefaultDirectory}/spreadsheet_default_styled.xlsx";
         private const string MultipleStyledFilePath = $"{DefaultDirectory}/spreadsheet_multiple_styled.xlsx";
         private const string DefaultFilePathForProperties = $"{DefaultDirectory}/spreadsheet_properties.xlsx";
+        private const string DefaultFileWithImage = $"{DefaultDirectory}/spreadsheet_images.xlsx";
+        private const string DefaultImageDirectory = "../../../spreadSheetImages";
+        private const string DefaultImageFile = $"{DefaultImageDirectory}/image1.png";
         private const string DefaultSheetName = "NewWorksheet";
 
         public WorkbookExamples()
@@ -203,6 +206,34 @@
                 Console.WriteLine($"An error occurred while opening the workbook: {ex.Message}");
             }
         }
+
+        public void RemoveWorksheetByName(string filePath = DefaultFilePath, string sheetName = "sheet1")
+        {
+            try
+            {
+                using (var workbook = new Workbook(filePath))
+                {
+                    // Attempt to remove the specified worksheet
+                    bool removed = workbook.RemoveSheet(sheetName);
+
+                    if (removed)
+                    {
+                        // Save the changes to the workbook
+                        workbook.Save();
+                        Console.WriteLine($"{sheetName} removed and changes saved successfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The specified worksheet {sheetName} was not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while removing the worksheet: {ex.Message}");
+            }
+        }
+
 
     }
 }

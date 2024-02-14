@@ -51,6 +51,15 @@ namespace FileForamt.Cells.Examples.Usage
 
             // Call the method to un protect a worksheet in the spreadsheet.
             myWorksheet.UnprotectWorksheets();
+
+            // Call the method to add image within a worksheet.
+            myWorksheet.AddImageToWorksheet();
+
+            // Call the method to extract images within a worksheet.
+            myWorksheet.ExtractImagesFromWorksheet();
+
+            // Call the method to Remove sheet from a workbook.
+            myWorkbook.RemoveWorksheetByName();
         }
     }
 }
