@@ -9,10 +9,12 @@ namespace FileFormat.Cells.Examples
     {
         private const string DefaultDirectory = "../../../spreadSheetDocuments/Worksheet";
         private const string DefaultFilePath = $"{DefaultDirectory}/spreadsheet.xlsx";
+        private const string DefaultRangeFile = $"{DefaultDirectory}/spreadsheet_range.xlsx";
         private const string DefaultMergeCellsFilePath = $"{DefaultDirectory}/spreadsheet_merged_cells.xlsx";
         private const string DefaultDataPopulatedFilePath = $"{DefaultDirectory}/spreadsheet_data_populated.xlsx";
         private const string DefaultProtectedSheetFile = $"{DefaultDirectory}/spreadsheet_protected_sheet.xlsx";
         private const string DefaultUnProtectedSheetFile = $"{DefaultDirectory}/spreadsheet_un_protected_sheet.xlsx";
+        private const string DefaultFileDemonstrateBasics = $"{DefaultDirectory}/spreadsheet_worksheet_demonstrate_basics.xlsx";
         private const string DefaultFileWithImage = $"{DefaultDirectory}/spreadsheet_images.xlsx";
         private const string DefaultImageDirectory = "../../../spreadSheetImages";
         private const string DefaultImageFile = $"{DefaultImageDirectory}/image1.png";
@@ -323,6 +325,57 @@ namespace FileFormat.Cells.Examples
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+
+        public void SetColumnWidthAndRowHeight(string filePath = DefaultFileDemonstrateBasics)
+        {
+            // Initialize a new workbook instance
+            using (Workbook wb = new Workbook())
+            {
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                // Set the height of the first row to 40 points
+                firstSheet.SetRowHeight(1, 40);
+
+                // Set the width of column B to 75 points
+                firstSheet.SetColumnWidth("B", 75);
+
+                // Insert a value into cell A1
+                Cell cellA1 = firstSheet.Cells["A1"];
+                cellA1.PutValue("Value in A1");
+
+                Cell cellB2 = firstSheet.Cells["B2"];
+                cellB2.PutValue("Text in B2");
+
+                // Save the workbook to the specified file path
+                wb.Save(filePath);
+
+                Console.WriteLine($"Workbook saved successfully at {filePath}");
+            }
+        }
+
+        public void SetRangeValue(string filePath = DefaultRangeFile)
+        {
+           
+            using (Workbook wb = new Workbook())
+            {
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                // Select a range within the worksheet
+                var range = firstSheet.GetRange("A1", "B10");
+                Console.WriteLine($"Column count: {range.ColumnCount}");
+                Console.WriteLine($"Row count: {range.RowCount}");
+
+                // Set a similar value to all cells in the selected range
+                range.SetValue("Hello");
+
+                // Save the changes back to the workbook
+                wb.Save(filePath);
+
+                Console.WriteLine("Value set to range and workbook saved successfully.");
             }
         }
     }

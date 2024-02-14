@@ -28,9 +28,12 @@ namespace FileForamt.Cells.Examples.Usage
             // Call the method to display the workbook properties
             myWorkbook.DisplayWorkbookProperties();
 
+            // Call the method to Remove sheet from a workbook.
+            myWorkbook.RemoveWorksheetByName();
+
             // Create an instance of the WorksheetExamples class from FileFormat.Cells.Examples
             WorksheetExamples myWorksheet = new WorksheetExamples();
-            
+
             // Call the method to add a value to a cell
             myWorksheet.AddValueToCell();
 
@@ -58,8 +61,11 @@ namespace FileForamt.Cells.Examples.Usage
             // Call the method to extract images within a worksheet.
             myWorksheet.ExtractImagesFromWorksheet();
 
-            // Call the method to Remove sheet from a workbook.
-            myWorkbook.RemoveWorksheetByName();
+            // Call the method to Set Column width and Row height within the worksheet.
+            myWorksheet.SetColumnWidthAndRowHeight();
+
+            // Call the method to set the value for a range within a worksheet.
+            myWorksheet.SetRangeValue();
         }
     }
 }
