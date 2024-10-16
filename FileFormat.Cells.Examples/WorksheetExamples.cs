@@ -440,5 +440,62 @@ namespace FileFormat.Cells.Examples
                 Console.WriteLine("Columns inserted and workbook saved successfully.");
             }
         }
+
+        public void GetHiddenColumns(string filePath = DefaultSpreadSheetFileData)
+        {
+            // Load the workbook from the specified file path
+            using (Workbook wb = new Workbook(filePath))
+            {
+                var saveFilePath = BasicOperationFileColumns;
+
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                // Get Hidden Columns
+                List<uint> hiddenColumns = firstSheet.GetHiddenColumns();
+
+                foreach (var col in hiddenColumns)
+                {
+                    Console.WriteLine($"Hidden Column: {col}");
+                }
+
+            }
+        }
+
+        public void GetHiddenRows(string filePath = DefaultSpreadSheetFileData)
+        {
+            // Load the workbook from the specified file path
+            using (Workbook wb = new Workbook(filePath))
+            {
+                var saveFilePath = BasicOperationFileColumns;
+
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                // Get Hidden Columns
+                List<uint> hiddenRows = firstSheet.GetHiddenColumns();
+
+                foreach (var row in hiddenRows)
+                {
+                    Console.WriteLine($"Hidden Row: {row}");
+                }
+
+            }
+        }
+
+        public void FreezePane(string filePath = DefaultSpreadSheetFileData)
+        {
+            // Load the workbook from the specified file path
+            using (Workbook wb = new Workbook(filePath))
+            {
+                var saveFilePath = BasicOperationFileColumns;
+
+                // Access the first worksheet in the workbook
+                Worksheet firstSheet = wb.Worksheets[0];
+
+                firstSheet.FreezePane(2,1);
+
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FileFormat.Cells" Version="24.1.0" />
+    <PackageReference Include="FileFormat.Cells" Version="24.10.0" />
   </ItemGroup>
 
 </Project>

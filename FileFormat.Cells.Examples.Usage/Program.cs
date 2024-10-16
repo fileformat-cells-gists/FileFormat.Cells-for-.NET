@@ -72,6 +72,15 @@ namespace FileForamt.Cells.Examples.Usage
 
             // Call the method to Insert Columns within a worksheet.
             myWorksheet.InsertColumnsIntoWorksheet();
+
+            // Call the method to Get Hidden Columns within a worksheet.
+            myWorksheet.GetHiddenColumns();
+
+            // Call the method to Get Hidden Rows within a worksheet.
+            myWorksheet.GetHiddenRows();
+
+            // Call the method to Freeze Pane within a worksheet.
+            myWorksheet.FreezePane();
         }
     }
 }
