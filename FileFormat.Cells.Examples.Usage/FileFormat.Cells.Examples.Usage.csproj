@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FileFormat.Cells" Version="25.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FileFormat.Cells.Examples\FileFormat.Cells.Examples.csproj" />
   </ItemGroup>
 
